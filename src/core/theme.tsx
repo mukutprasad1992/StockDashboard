@@ -1,13 +1,11 @@
 import { DefaultTheme } from 'react-native-paper';
 
-// Define a type for your custom theme
 type CustomTheme = typeof DefaultTheme & {
   colors: {
     text: string;
     primary: string;
     secondary: string;
     error: string;
-    // Add any other custom color properties if needed
   };
 };
 

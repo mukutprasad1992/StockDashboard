@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: '150%',
     justifyContent: 'flex-start',
-    marginTop:1
+    marginTop:3
   },
   text1: {
     fontWeight: "bold",
-    width: 100,
-    marginTop: 30,
+    width: 120,
+    marginTop: 25,
     fontSize: 24,
   },
   back:{

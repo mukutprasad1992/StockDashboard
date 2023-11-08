@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    textAlign: 'center', // Center the text content
+    textAlign: 'center', 
     width: '70%',
     height: 60,
     borderWidth: 2,
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     fontSize: 21,
     alignContent: "center",
-    padding: 0, // Remove any padding that might affect the cursor position
-    paddingHorizontal: 10, // Add some horizontal padding to prevent cursor from moving to the right edge
+    padding: 0,
+    paddingHorizontal: 10,
   },
   
   buttonContainer: {

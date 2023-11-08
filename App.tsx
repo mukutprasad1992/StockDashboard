@@ -3,8 +3,9 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 import { theme } from './src/core/theme';
+
 import {
   StartScreen,
   LoginScreen,
@@ -22,7 +23,9 @@ import { StatusBar } from 'react-native';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 export default function App() {
+  
   return (
 
     <PaperProvider theme={theme}>
@@ -42,9 +45,6 @@ export default function App() {
           <Stack.Screen name="Funds" component={Funds} />
           <Stack.Screen name="Analytic" component={Analytic} />
 
-          
-
-
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
@@ -57,14 +57,14 @@ StatusBar.setBackgroundColor('#000000');
 
 const DashboardStack = () => {
   const [isBullTouched, setBullTouched] = useState(false);
-
-  const handleBullTouch = () => {
-    setBullTouched(!isBullTouched);
-  };
+ 
+  // const handleBullTouch = () => {
+  //   setBullTouched(!isBullTouched);
+  // };
   return (
       <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: 'white' },
+        tabBarStyle: { backgroundColor: 'white'},
       
       }}
     
@@ -73,6 +73,12 @@ const DashboardStack = () => {
           name="All Stocks"
           component={Stocks}
           options={{
+            headerTitle: 'All Stocks',
+            headerTitleStyle: {
+              color: '#10608c',fontWeight:'bold',fontStyle: 'italic',
+
+
+            },
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('./src/assets/Stocks.png')}
@@ -90,8 +96,13 @@ const DashboardStack = () => {
           name="Bullish Stocks"
           component={Bull}
           options={{
+            headerTitle: 'Bullish Stocks',
+            headerTitleStyle: {
+              color: '#10610c', fontWeight:'bold',fontStyle: 'italic'
+            },
           
             tabBarIcon: ({focused}) => (
+              
               <Image
                 source={require('./src/assets/Bull.png')}
                 style={{
@@ -109,6 +120,10 @@ const DashboardStack = () => {
           name="Bearish Stocks"
           component={Bear}
           options={{
+            headerTitle: 'Bearish Stocks',
+            headerTitleStyle: {
+              color: '#ab1313',fontWeight:'bold',fontStyle: 'italic'
+            },
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('./src/assets/Bear.png')}
@@ -126,6 +141,10 @@ const DashboardStack = () => {
           name="Profile"
           component={Profile}
           options={{
+            headerTitle: 'Profile',
+            headerTitleStyle: {
+              color: 'black',fontWeight:'bold',fontStyle: 'italic'
+            },
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('./src/assets/user.png')}

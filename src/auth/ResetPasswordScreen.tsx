@@ -32,7 +32,7 @@ export default function ResetPasswordScreen({ navigation }:any) {
       const userData: UserData = {
         email: email.value,
       };
-      const baseUrl = 'http://192.168.0.179:3000/auth/forgot-password';
+      const baseUrl = 'http://192.168.0.179:3000/forgot-password/forgot-password';
 
     axios
     .post(baseUrl, userData)
