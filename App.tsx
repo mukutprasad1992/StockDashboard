@@ -75,7 +75,7 @@ const DashboardStack = () => {
           options={{
             headerTitle: 'All Stocks',
             headerTitleStyle: {
-              color: '#10608c',fontWeight:'bold',fontStyle: 'italic',
+              color: '#10608c',fontWeight:'bold',
 
 
             },
@@ -98,7 +98,7 @@ const DashboardStack = () => {
           options={{
             headerTitle: 'Bullish Stocks',
             headerTitleStyle: {
-              color: '#10610c', fontWeight:'bold',fontStyle: 'italic'
+              color: '#10610c', fontWeight:'bold',
             },
           
             tabBarIcon: ({focused}) => (
@@ -122,7 +122,7 @@ const DashboardStack = () => {
           options={{
             headerTitle: 'Bearish Stocks',
             headerTitleStyle: {
-              color: '#ab1313',fontWeight:'bold',fontStyle: 'italic'
+              color: '#ab1313',fontWeight:'bold',
             },
             tabBarIcon: ({focused}) => (
               <Image
@@ -143,7 +143,7 @@ const DashboardStack = () => {
           options={{
             headerTitle: 'Profile',
             headerTitleStyle: {
-              color: 'black',fontWeight:'bold',fontStyle: 'italic'
+              color: 'black',fontWeight:'bold'
             },
             tabBarIcon: ({focused}) => (
               <Image

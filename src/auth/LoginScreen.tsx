@@ -43,6 +43,7 @@ export default function LoginScreen({ navigation }: any) {
       email: email.value,
       password: password.value,
     };
+
     const baseUrl = 'http://192.168.0.179:3000/auth/login';
     console.log(userData);
     console.log('Making request to:', baseUrl);

@@ -60,7 +60,7 @@ export default function RegisterScreen({ navigation }: any) {
       confirmPassword: confirmPassword.value,
     };
 
-    const baseUrl = 'http://192.168.0.179:3000/users/register';
+    const baseUrl = 'http://192.168.0.179:3000/user/register';
    
 console.log(userData)
       console.log('Making request to:', baseUrl);

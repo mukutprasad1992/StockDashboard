@@ -41,8 +41,8 @@ const Stocks = ({ navigation }: any) => {
     }
   };
 
-  const Analytic = () => {
-    navigation.navigate('Analytic');
+  const Analytic = (stockData: any) => {
+    navigation.navigate('Analytic', { stockData });
   };
 
   const getPriceColor = (price: any) => {
@@ -74,7 +74,8 @@ const Stocks = ({ navigation }: any) => {
                 </Text>
               </View>
               <View style={styles.column}>
-                <Button mode="contained" onPress={Analytic} style={styles.button}>
+                <Button mode="contained"  onPress={() => Analytic(data)}
+                  style={styles.button}>
                   Analytics
                 </Button>
               </View>
