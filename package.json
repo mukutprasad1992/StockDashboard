@@ -26,6 +26,7 @@
     "@nestjs/jwt": "^10.1.1",
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "^10.2.8",
+    "@types/bcrypt": "^5.0.2",
     "aws-sdk": "^2.1488.0",
     "axios": "^1.6.0",
     "bcrypt": "^5.1.1",

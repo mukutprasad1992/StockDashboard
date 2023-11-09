@@ -6,6 +6,7 @@ import { AuthModule } from './Auth/auth.module';
 import { StockModule } from './stocks/stock.module';
 import { ProfileModule } from './profile/profile.module';
 import { FileUploadService } from './utils/file-upload/file-upload.service';
+import { UserAnalyticsModule } from './UserAnalatics/userAnalatics.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { FileUploadService } from './utils/file-upload/file-upload.service';
     AuthModule,
     StockModule,
     ProfileModule,
+    UserAnalyticsModule,
 
 
   ],

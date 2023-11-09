@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseInterceptors, UploadedFiles, Delete, Put, Patch } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import * as admin from 'firebase-admin';
@@ -48,7 +48,7 @@ export class AppController {
     } catch (error) {
       return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         status: false,
-        message: "Error in getting all the  cities",
+        message: "Error in getting all the  Users",
         error: error.message
       });
 
@@ -57,12 +57,7 @@ export class AppController {
 
 
   @Post('register')
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'documents', maxCount: 10 }]))
-  async registerUser(@Body() userData: UserDTO, @Res() response, @UploadedFiles() documents) {
-
-    const getFileUploadContent = await this.profileService.uploadFile(documents);
-    userData.documents = getFileUploadContent;
-
+  async registerUser(@Body() userData: UserDTO, @Res() response) {
     if (userData.password !== userData.confirmpassword) {
       return response.status(HttpStatus.BAD_REQUEST).json({
         status: false,
@@ -80,8 +75,31 @@ export class AppController {
       message: "User registered successfully",
       data: createUser
     })
+  }
 
+  @Delete('/delete/:userId')
+  async deleteUserById(@Param('userId') userId: string, @Res() Response) {
+    try {
+      const deleteCityById = await this.appService.deleteUser(userId);
+      return Response.status(HttpStatus.OK).json({
+        status: true,
+        message: "User deleted successfully",
+        data: {}
+      })
 
+    } catch (error) {
+      return Response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        status: false,
+        message: "Error in deleting User",
+        error: error.message
+      });
+
+    }
+  }
+  @Put('/update/:userid')
+  async updateUser(@Param('userid') userId: string, @Body() updateData: Record<string, any>): Promise<any> {
+    const updatedUser = this.appService.update(userId, updateData);
+    return updatedUser
   }
 
 }

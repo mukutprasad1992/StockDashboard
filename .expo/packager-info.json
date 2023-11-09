@@ -1,0 +1,9 @@
+{
+  "expoServerPort": 19001,
+  "packagerPort": 19001,
+  "expoServerNgrokUrl": "https://cff-nrc.anonymous.stockdashboard.exp.direct",
+  "packagerNgrokUrl": "https://cff-nrc.anonymous.stockdashboard.exp.direct",
+  "ngrokPid": 25300,
+  "packagerPid": null,
+  "webpackServerPort": null
+}
