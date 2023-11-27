@@ -1,7 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseInterceptors, UploadedFiles, Delete, Put, Patch } from '@nestjs/common';
 import { AppService } from './app.service';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import * as admin from 'firebase-admin';
 import { UserDTO } from './user.dto';
 import * as bcrypt from "bcrypt";
 import { FileUploadService } from './utils/file-upload/file-upload.service';
@@ -19,7 +17,7 @@ export class AppController {
       const getUserInstance = await this.appService.getUserById(userId);
 
       if (!getUserInstance) {
-        throw new Error('User not found'); // Customize the error message as needed
+        throw new Error('User not found');
       }
 
       return response.status(HttpStatus.OK).json({

@@ -37,48 +37,48 @@ export class ProfileController {
         }
     }
 
-    @Get('/getProfile/:userId')
-    async getById(@Param('userId') userId: string, @Res() response): Promise<void> {
-        try {
-            const getUserInstance = await this.profileService.getUserById(userId);
+    // @Get('/getProfile/:userId')
+    // async getById(@Param('userId') userId: string, @Res() response): Promise<void> {
+    //     try {
+    //         const getUserInstance = await this.profileService.getUserById(userId);
 
-            if (!getUserInstance) {
-                throw new Error('User not found'); // Customize the error message as needed
-            }
+    //         if (!getUserInstance) {
+    //             throw new Error('User not found'); // Customize the error message as needed
+    //         }
 
-            return response.status(HttpStatus.OK).json({
-                status: true,
-                message: 'User found',
-                data: getUserInstance,
-            });
-        } catch (error) {
-            return response.status(HttpStatus.NOT_FOUND).json({
-                status: false,
-                message: 'User not found', // You can customize this error message too
-                error: error.message, // Include the error message for debugging
-            });
-        }
-    }
-    @Get('/getProfileData/:userId')
-    async getAllById(@Param('userId') userId: string, @Res() response): Promise<void> {
-        try {
-            const getUserInstance = await this.profileService.getAlldata(userId);
+    //         return response.status(HttpStatus.OK).json({
+    //             status: true,
+    //             message: 'User found',
+    //             data: getUserInstance,
+    //         });
+    //     } catch (error) {
+    //         return response.status(HttpStatus.NOT_FOUND).json({
+    //             status: false,
+    //             message: 'User not found', // You can customize this error message too
+    //             error: error.message, // Include the error message for debugging
+    //         });
+    //     }
+    // }
+    // @Get('/getProfileData/:userId')
+    // async getAllById(@Param('userId') userId: string, @Res() response): Promise<void> {
+    //     try {
+    //         const getUserInstance = await this.profileService.getAlldata(userId);
 
-            if (!getUserInstance) {
-                throw new Error('User not found'); // Customize the error message as needed
-            }
+    //         if (!getUserInstance) {
+    //             throw new Error('User not found'); // Customize the error message as needed
+    //         }
 
-            return response.status(HttpStatus.OK).json({
-                status: true,
-                message: 'User found',
-                data: getUserInstance,
-            });
-        } catch (error) {
-            return response.status(HttpStatus.NOT_FOUND).json({
-                status: false,
-                message: 'User not found', // You can customize this error message too
-                error: error.message, // Include the error message for debugging
-            });
-        }
-    }
+    //         return response.status(HttpStatus.OK).json({
+    //             status: true,
+    //             message: 'User found',
+    //             data: getUserInstance,
+    //         });
+    //     } catch (error) {
+    //         return response.status(HttpStatus.NOT_FOUND).json({
+    //             status: false,
+    //             message: 'User not found', // You can customize this error message too
+    //             error: error.message, // Include the error message for debugging
+    //         });
+    //     }
+    // }
 }

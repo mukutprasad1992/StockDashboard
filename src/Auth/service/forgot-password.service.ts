@@ -44,16 +44,16 @@ export class ForgotPasswordService {
         <h1>Password Reset</h1>
       </div>
       <div style="padding: 20px;">
-        <p>Hello ${userData.username},</p>
-        <p>We received a request to reset your password for ${userData.username}.</p>
+        <p>Hello ${userData.name},</p>
+        <p>We received a request to reset your password for ${userData.name}.</p>
         <p>If you didn't make this request, you can ignore this email. Otherwise, you can reset your password using the link below:</p>
         <p><a href="${resetLink}" style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none;">${resetLink}</a></p>
         <p>This link will expire in 10 minuts.</p>
         <p>If you have any questions or need assistance, please contact our support team at [Support Email].</p>
-        <p>Best regards,<br>City-Barber Team</p>
+        <p>Best regards,<br>Stock-Dashboard Team</p>
       </div>
       <div style="background-color: #333; color: #fff; text-align: center; padding: 10px;">
-        <p>&copy; 2023 City-Barber. All rights reserved.</p>
+        <p>&copy; 2023 Stock-Dashboard. All rights reserved.</p>
       </div>
     </body>
     `;
