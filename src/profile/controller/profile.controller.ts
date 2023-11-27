@@ -1,4 +1,4 @@
-import { Get } from '@nestjs/common';
+import { Delete, Get } from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { Body, Controller, HttpStatus, Post, Res, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -34,6 +34,20 @@ export class ProfileController {
                 error: error.message
             });
 
+        }
+    }
+
+    @Delete('/remove/:userId/:fieldName')
+    async removeProfilePic(
+        @Param('userId') userId: string,
+        @Param('fieldName') fieldName: string,
+    ): Promise<any> {
+        try {
+            await this.profileService.removeprofilePic(userId, fieldName);
+            return { message: `Field '${fieldName}' deleted for user with ID: ${userId}` };
+        } catch (error) {
+            // Handle errors appropriately
+            throw error;
         }
     }
 

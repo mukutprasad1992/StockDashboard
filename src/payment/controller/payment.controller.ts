@@ -28,7 +28,7 @@ export class PaymentController {
         }
     }
 
-    @Get('/paymentID:paymentId')
+    @Get('/paymentID/:paymentId')
     async cityById(@Param('paymentId') paymentId: string, @Res() Response) {
         try {
             const getPaymentById = await this.paymentService.findOne(paymentId);

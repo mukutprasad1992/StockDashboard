@@ -36,5 +36,12 @@ export class ProfileService {
 
     }
 
+    async removeprofilePic(userId: string, fieldName: string): Promise<void> {
+        const updateData: any = {};
+        updateData[fieldName] = admin.firestore.FieldValue.delete();
+
+        await admin.firestore().collection('users').doc(userId).update(updateData);
+    }
+
 
 }
