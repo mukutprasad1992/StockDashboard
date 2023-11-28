@@ -2,21 +2,23 @@ import Background from '../components/Background';
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-const DashboardScreen = ({ navigation }: { navigation: any }) => {
+const DashboardScreen = ({ navigation, route }: { navigation: any; route: any }) => {
+  const userId = "";
+  const userToken = '';
   return (
-    
+
     <View style={styles.container}>
       <Text>Dashboard Screen</Text>
       <View style={styles.buttonContainer}>
         <Button title="Stocks" onPress={() => navigation.navigate('Stocks')} />
         <Button title="Bull" onPress={() => navigation.navigate('Bull')} />
         <Button title="Bear" onPress={() => navigation.navigate('Bear')} />
-        <Button title="Profile" onPress={() => navigation.navigate('Profile')} />
+        <Button title="Profile" onPress={() => navigation.navigate('Profile', { userId })} />
 
 
       </View>
     </View>
-    
+
   );
 }
 

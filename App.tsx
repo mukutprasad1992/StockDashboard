@@ -19,34 +19,38 @@ import Bear from './src/auth/Bear';
 import Stocks from './src/auth/Stocks';
 import Profile from './src/auth/Profile';
 import { StatusBar } from 'react-native';
+import { TokenProvider } from './src/auth/Bearer';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
 export default function App() {
-  
+
   return (
 
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="StartScreen"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="StartScreen" component={StartScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-          <Stack.Screen name="Dashboard" component={DashboardStack} />
-          <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Funds" component={Funds} />
-          <Stack.Screen name="Analytic" component={Analytic} />
+      <TokenProvider>
 
-        </Stack.Navigator>
-      </NavigationContainer>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="StartScreen"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="StartScreen" component={StartScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+            <Stack.Screen name="Dashboard" component={DashboardStack} />
+            <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Funds" component={Funds} />
+            <Stack.Screen name="Analytic" component={Analytic} />
+
+          </Stack.Navigator>
+        </NavigationContainer>
+      </TokenProvider>
     </PaperProvider>
 
   );
@@ -57,108 +61,108 @@ StatusBar.setBackgroundColor('#000000');
 
 const DashboardStack = () => {
   const [isBullTouched, setBullTouched] = useState(false);
- 
+
   // const handleBullTouch = () => {
   //   setBullTouched(!isBullTouched);
   // };
   return (
-      <Tab.Navigator
+    <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: 'white'},
-      
+        tabBarStyle: { backgroundColor: 'white' },
+
       }}
-    
-      >
-         <Tab.Screen
-          name="All Stocks"
-          component={Stocks}
-          options={{
-            headerTitle: 'All Stocks',
-            headerTitleStyle: {
-              color: '#10608c',fontWeight:'bold',
+
+    >
+      <Tab.Screen
+        name="All Stocks"
+        component={Stocks}
+        options={{
+          headerTitle: 'All Stocks',
+          headerTitleStyle: {
+            color: '#10608c', fontWeight: 'bold',
 
 
-            },
-            tabBarIcon: ({focused}) => (
-              <Image
-                source={require('./src/assets/Stocks.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? 'blue' : 'black', 
-                }}/>
-            ),
-            tabBarLabel: '',
+          },
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={require('./src/assets/Stocks.png')}
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? 'blue' : 'black',
+              }} />
+          ),
+          tabBarLabel: '',
 
-          }}
-        />
-         <Tab.Screen
-          name="Bullish Stocks"
-          component={Bull}
-          options={{
-            headerTitle: 'Bullish Stocks',
-            headerTitleStyle: {
-              color: '#10610c', fontWeight:'bold',
-            },
-          
-            tabBarIcon: ({focused}) => (
-              
-              <Image
-                source={require('./src/assets/Bull.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? 'blue' : 'black', 
-                  
-                }}/>
-            ),
-            tabBarLabel: '',
+        }}
+      />
+      <Tab.Screen
+        name="Bullish Stocks"
+        component={Bull}
+        options={{
+          headerTitle: 'Bullish Stocks',
+          headerTitleStyle: {
+            color: '#10610c', fontWeight: 'bold',
+          },
 
-          }}
-        />
-         <Tab.Screen
-          name="Bearish Stocks"
-          component={Bear}
-          options={{
-            headerTitle: 'Bearish Stocks',
-            headerTitleStyle: {
-              color: '#ab1313',fontWeight:'bold',
-            },
-            tabBarIcon: ({focused}) => (
-              <Image
-                source={require('./src/assets/Bear.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? 'blue' : 'black', 
-                }}/>
-            ),
-            tabBarLabel: '',
+          tabBarIcon: ({ focused }) => (
 
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerTitle: 'Profile',
-            headerTitleStyle: {
-              color: 'black',fontWeight:'bold'
-            },
-            tabBarIcon: ({focused}) => (
-              <Image
-                source={require('./src/assets/user.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? 'blue' : 'black', 
-                }}/>
-            ),
-            tabBarLabel: '',
+            <Image
+              source={require('./src/assets/Bull.png')}
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? 'blue' : 'black',
 
-          }}
-        />
-      </Tab.Navigator>
+              }} />
+          ),
+          tabBarLabel: '',
+
+        }}
+      />
+      <Tab.Screen
+        name="Bearish Stocks"
+        component={Bear}
+        options={{
+          headerTitle: 'Bearish Stocks',
+          headerTitleStyle: {
+            color: '#ab1313', fontWeight: 'bold',
+          },
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={require('./src/assets/Bear.png')}
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? 'blue' : 'black',
+              }} />
+          ),
+          tabBarLabel: '',
+
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerTitle: 'Profile',
+          headerTitleStyle: {
+            color: 'black', fontWeight: 'bold'
+          },
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={require('./src/assets/user.png')}
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? 'blue' : 'black',
+              }} />
+          ),
+          tabBarLabel: '',
+
+        }}
+      />
+    </Tab.Navigator>
 
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { Text } from 'react-native-paper';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
@@ -23,15 +23,15 @@ export default function LoginScreen({ navigation }: any) {
   const [password, setPassword] = useState({ value: '', error: '' });
 
   const setResponseData = (data: string) => {
-    console.log(data); 
+    console.log(data);
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],
     });
-  
+
   }
 
-  const onLoginPressed =async () => {
+  const onLoginPressed = async () => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
     if (emailError || passwordError) {
@@ -50,23 +50,23 @@ export default function LoginScreen({ navigation }: any) {
 
 
     axios
-  .post(baseUrl, userData)
-  .then((response) => {
-    setResponseData(`Response: ${JSON.stringify(response.data)}`);
-    console.log('Response:', response.data);
-  })
-  .catch((error) => {
-    setResponseData(`Error: ${error.message}`);
-    console.error('Error:', error);
-  });
-  console.log('complete');
+      .post(baseUrl, userData)
+      .then((response) => {
+        setResponseData(`Response: ${JSON.stringify(response.data)}`);
+        console.log('Response:', response.data);
+      })
+      .catch((error) => {
+        setResponseData(`Error: ${error.message}`);
+        console.error('Error:', error);
+      });
+    console.log('complete');
   }
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack}/>
-      <View style= {styles.logo}>
-      <Logo />
+      {/* <BackButton goBack={navigation.goBack}/> */}
+      <View style={styles.logo}>
+        <Logo />
       </View>
       <Header>Welcome back.</Header>
       <TextInput
@@ -102,7 +102,7 @@ export default function LoginScreen({ navigation }: any) {
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-      <Button mode="contained" onPress={onLoginPressed} style={{ backgroundColor: '#41b7c4'}}>
+      <Button mode="contained" onPress={onLoginPressed} style={{ backgroundColor: '#41b7c4' }}>
         Login
       </Button>
 
@@ -122,30 +122,44 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-end',
     marginBottom: 24,
+    ...(Platform.OS === 'web'
+      ? {
+        width: '100%',
+        alignItems: 'flex-end',
+        marginBottom: 24,
+      }
+      : {}),
   },
   row: {
     flexDirection: 'row',
     marginTop: 60,
-    },
+  },
   forgot: {
     fontSize: 13,
     color: 'white',
-    marginRight:10
+    marginRight: 10,
+    ...(Platform.OS === 'web'
+      ? {
+        fontSize: 13,
+        color: 'white',
+        marginRight: 10,
+      }
+      : {}),
   },
   link: {
     fontWeight: 'bold',
     color: 'blue',
   },
-  text:{
-    color:'white',
+  text: {
+    color: 'white',
   },
-  logo:{
-    marginTop:150,
+  logo: {
+    marginTop: 150,
   },
   input: {
     height: 50,
-    marginBottom: 10, 
-    width:250
+    marginBottom: 10,
+    width: 250
   },
- 
+
 });

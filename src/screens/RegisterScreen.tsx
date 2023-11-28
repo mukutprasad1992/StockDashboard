@@ -80,7 +80,7 @@ console.log('wait');
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack}/>
+      {/* <BackButton goBack={navigation.goBack}/> */}
       <View style= {styles.logo}>
       <Logo />
       </View>

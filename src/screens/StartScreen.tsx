@@ -1,60 +1,61 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Background from '../components/Background';
-import Logo from '../components/Logo';
-import Header from '../components/Header';
-import { Button } from 'react-native-paper';
-import Paragraph from '../components/Paragraph';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 export default function StartScreen({ navigation }: any) {
+  const [logo, setLogo] = useState(true)
+  useEffect(() => {
+    const setTimeOut = setTimeout(() => {
+      setLogo(false);
+      navigation.navigate('RegisterScreen');
+    }, 5000);
+    return () => clearTimeout(setTimeOut);
+  }, [navigation]);
+
+
   return (
-    <Background>
-      <View style={styles.input}>
-      <Logo />
-      </View>
-      <Header>Welcome</Header>
-  
-      <Paragraph style={styles.text}>
-        The easiest way to start with your amazing application.
-      </Paragraph>
-      <View style={styles.buttonContainer}>
-      <Button
-       mode="contained"
-       onPress={() => navigation.navigate('LoginScreen')}
-       style={{ backgroundColor: '#41b7c4' }}
-      //  #999bf0, #3c848c
-       >
-        Login
-        </Button>
-        <View style={{ width: 16 }} /> 
-
-<Button
- mode="contained"
- onPress={() => navigation.navigate('RegisterScreen')}
- style={{ backgroundColor: '#41b7c4' }}
-
- >
-  Sign Up
-  </Button>
-      </View>
-    </Background>
+    <View style={styles.container}>
+      {logo && (
+        <Animatable.View
+          animation="fadeIn"
+          iterationCount="infinite"
+          direction="normal"
+          duration={5000}
+          style={styles.logoContainer}
+        >
+          <Animatable.Image
+            animation="bounceIn"
+            iterationCount="infinite"
+            direction="normal"
+            duration={5000}
+            source={require('../assets/logo3.png')}
+            style={styles.logo}
+          />
+          <Text style={styles.logoText}>MasterDashboard</Text>
+        </Animatable.View>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: 60,
-    height: 44,
-    marginTop:30,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
   },
-  text:{
-    color:'#cdf6fa',
-    marginTop:10
+  logoContainer: {
+    alignItems: 'center',
   },
-  input:{
-    marginTop:150,
+  logo: {
+    width: 100,
+    height: 100,
   },
- 
+  logoText: {
+    color: 'white',
+    fontSize: 20,
+    marginTop: 10,
+    fontWeight: "bold"
+  },
 });

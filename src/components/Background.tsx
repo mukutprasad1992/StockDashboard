@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    width:"80%",
-    marginBottom:110
+    width: "80%",
+    marginBottom: 110
   },
 });
 

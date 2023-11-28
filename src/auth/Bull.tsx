@@ -45,15 +45,15 @@ const Bull = ({ navigation }: any) => {
     navigation.navigate('Analytic');
   };
 
-  const getPriceColor = (price: any) => {
-    return price.lastPrice >= 1000 ? 'green' : 'red';
-  };
-  
+  // const getPriceColor = (price: any) => {
+  //   return price.lastPrice >= 1000 ? 'green' : 'red';
+  // };
+
   const getTrend = (price: any) => {
-    return price.lastPrice >= 1000 ? '↑' : '↓';
+    return price.dayHigh >= 1000 ? '↑' : '↓';
   };
-  
-  
+
+
 
   return (
     <View style={styles.container}>
@@ -65,21 +65,23 @@ const Bull = ({ navigation }: any) => {
           }
         >
           {stockData.map((data: any, index: any) => (
-            <View key={index} style={styles.row}>
-              <View style={styles.column}>
-                <Text style={styles.name}>{data.identifier}</Text>
+            data.dayHigh >= 1000 && (
+              <View key={index} style={styles.row}>
+                <View style={styles.column}>
+                  <Text style={styles.name}>{data.identifier}</Text>
+                </View>
+                <View style={styles.column}>
+                  <Text style={[styles.price, { color: 'green' }]}>
+                    {data.dayHigh} ({getTrend(data)})
+                  </Text>
+                </View>
+                <View style={styles.column}>
+                  <Button mode="contained" onPress={() => Analytic()} style={styles.button}>
+                    Analytics
+                  </Button>
+                </View>
               </View>
-              <View style={styles.column}>
-                <Text style={[styles.price, { color: getPriceColor(data) }]}>
-                  {data.lastPrice} ({getTrend(data)})
-                </Text>
-              </View>
-              <View style={styles.column}>
-                <Button mode="contained" onPress={Analytic} style={styles.button}>
-                  Analytics
-                </Button>
-              </View>
-            </View>
+            )
           ))}
         </ScrollView>
       ) : (

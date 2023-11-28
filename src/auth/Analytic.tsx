@@ -4,67 +4,42 @@ import BackButton from '../components/BackButton1';
 import { SafeAreaView } from 'react-navigation';
 
 const Analytic = ({ route, navigation }: any) => {
-  const stockData = route.params.stockData;
-
-  const bullProbability = (price: any): number => {
-    return price.lastPrice >= 1000 ? 100 : 0;
-  };
-
-  const percentageBullish = bullProbability(stockData);
-
-  const getBullMessage = (percentage: number) => {
-    if (percentage >= 75) {
-      return "Strong Bullish Trend! The stock is showing significant positive momentum, likely due to positive market sentiment and strong fundamentals.";
-    } else if (percentage >= 50) {
-      return "Moderate Bullish Trend. The stock is exhibiting positive momentum, indicating a favorable market outlook.";
-    } else {
-      return "Weak Bullish Trend. There is a slight positive bias in the stock's movement, but caution is advised.";
-    }
-  };
-
-  const getBearMessage = (percentage: number) => {
-    if (percentage <= -10) {
-      return "Strong Bearish Trend! The stock is experiencing a significant downturn, possibly due to negative news or poor financial performance.";
-    } else if (percentage <= -5) {
-      return "Moderate Bearish Trend. The stock is showing a negative bias, suggesting caution in the current market conditions.";
-    } else {
-      return "Weak Bearish Trend. There is a slight negative bias in the stock's movement, but it may be influenced by short-term factors.";
-    }
-  };
-
-  const bullColor = percentageBullish >= 50 ? 'green' : 'black';
-  const bearColor = percentageBullish <= -5 ? 'red' : 'black';
-
-  console.log("Stock Data in Analytic:", stockData);
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text1}>Analytics</Text>
+      <Text style={styles.textHeader}>Analytics</Text>
       <View style={styles.line} />
-      <View>
-        <Text style={styles.stockName}>{`${stockData.identifier}`}</Text>
-        <Text style={styles.lastPrice}>{`${stockData.lastPrice}`}</Text>
+      {/* Bull Analysis Section */}
+      <View style={[styles.analysisContainer, styles.analysisBox]}>
+        <Text style={styles.bullTitle}>Bullish Analysis</Text>
+        <Text style={styles.analysisContent}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit sit amet arcu condimentum bibendum.
+          Proin vitae augue nec urna consequat ultricies. Nulla facilisi. Suspendisse potenti.
+        </Text>
+        <Text style={styles.analysisProbabilityBullish}>
+          Probabilty: 70%
+        </Text>
       </View>
-      <Text style={[styles.bull, { color: bullColor }]}>
-        📈 Bull Probability: {percentageBullish}% - {getBullMessage(percentageBullish)}
-      </Text>
-      <View style={styles.gap} />
-      <Text style={[styles.bear, { color: bearColor }]}>
-        📉  Bear Probability: {percentageBullish}% - {getBearMessage(percentageBullish)}
-      </Text>
+
+      {/* Bear Analysis Section */}
+      <View style={[styles.analysisContainer, styles.analysisBox]}>
+        <Text style={styles.bearTitle}>Bearish Analysis</Text>
+        <Text style={styles.analysisContent}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit sit amet arcu condimentum bibendum.
+          Proin vitae augue nec urna consequat ultricies. Nulla facilisi. Suspendisse potenti.
+        </Text>
+        <Text style={styles.analysisProbabilityBearish}>
+          Probabilty: 30%
+        </Text>
+      </View>
+
       <BackButton goBack={navigation.goBack} />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 20,
-  },
-  text1: {
-    fontWeight: "bold",
+  textHeader: {
+    fontWeight: 'bold',
     width: 120,
     marginTop: 25,
     fontSize: 24,
@@ -76,34 +51,53 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginTop: 3,
   },
-  stockName: {
-    fontWeight: "bold",
-    marginTop: 20,
-    fontSize: 19,
-    textAlign: "center",
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 20,
   },
-  lastPrice: {
-    fontWeight: "bold",
-    fontSize: 16,
-    textAlign: "center",
+  analysisContainer: {
+    marginTop: '25%',
+    width: '100%',
+    alignItems: 'center',
   },
-  bull: {
-    marginTop: 20,
-    fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 20,
-    width: "100%",
+  analysisBox: {
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
   },
-  bear: {
-    marginTop: 20,
-    fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 20,
-    width: "100%",
+  bullTitle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+    color: 'green',
   },
-  gap: {
-    height: 20,
+  bearTitle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+    color: 'red',
   },
+  analysisContent: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginTop: 10,
+    color: 'black',
+  },
+  analysisProbabilityBearish: {
+    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 15,
+    color: 'red',
+  },
+  analysisProbabilityBullish: {
+    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 15,
+    color: 'green',
+  }
 });
 
 export default Analytic;

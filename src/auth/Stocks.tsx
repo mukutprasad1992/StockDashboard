@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, ScrollView, ActivityIndicator, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl, Platform } from 'react-native';
 import { Button } from 'react-native-paper';
 import axios from 'axios';
 
@@ -48,11 +48,11 @@ const Stocks = ({ navigation }: any) => {
   const getPriceColor = (price: any) => {
     return price.lastPrice >= 1000 ? 'green' : 'red';
   };
-  
+
   const getTrend = (price: any) => {
     return price.lastPrice >= 1000 ? '↑' : '↓';
   };
-  
+
 
   return (
     <View style={styles.container}>
@@ -74,7 +74,7 @@ const Stocks = ({ navigation }: any) => {
                 </Text>
               </View>
               <View style={styles.column}>
-                <Button mode="contained"  onPress={() => Analytic(data)}
+                <Button mode="contained" onPress={() => Analytic(data)}
                   style={styles.button}>
                   Analytics
                 </Button>
@@ -88,10 +88,15 @@ const Stocks = ({ navigation }: any) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    ...(Platform.OS === 'web'
+      ? {
+        // Web-specific styles here
+        padding: 20,
+      }
+      : {}),
   },
   content: {
     flex: 1,
@@ -110,15 +115,33 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 15,
     textAlign: 'left',
+    ...(Platform.OS === 'web'
+      ? {
+        marginTop: 20,
+        fontSize: 15,
+        textAlign: 'left',
+      }
+      : {}),
   },
   price: {
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 20,
+    ...(Platform.OS === 'web'
+      ? {
+        color: 'blue',
+      }
+      : {}),
   },
   button: {
     marginTop: 10,
     marginRight: 5,
+    ...(Platform.OS === 'web'
+      ? {
+        // backgroundColor: 'blue',
+        color: 'white',
+      }
+      : {}),
   },
 });
 

@@ -7,24 +7,27 @@ import { ScrollView } from 'react-native-gesture-handler';
 import * as   ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
-
-const Profile = ({ navigation, userId } : any) => {
+const Profile = ({ navigation, userId }: any) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [userName, setUserName] = useState<string>(""); // State to store user name
+  const [username, setUserName] = useState<string>(""); // State to store user name
+  const [userDetails, setUserDetails] = useState<any | null>(null);
 
-  const user = {
-    name: "",
-    profileImage: require('../assets/logo.png'),
-  };
+  // const user = {
+  //   name: "",
+  //   profileImage: require('../assets/logo.png'),
+  // };
 
   const BASE_URL = 'http://192.168.0.179:3000/profile/upload';
 
   useEffect(() => {
-    
-    fetchUserInfo();
+
+    console.log("fetchig the userinfo")
+
+    fetchUserInfo(userId);
+
 
     (async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -33,15 +36,43 @@ const Profile = ({ navigation, userId } : any) => {
       }
     })();
   }, []);
-
-  const fetchUserInfo = async () => {
+  AsyncStorage.getAllKeys().then((keys) => {
+    console.log('AsyncStorage Keys:', keys);
+  });
+  const fetchUserInfo = async (userId: any) => {
     try {
-      const response = await axios.get(`http://192.168.0.179:3000/${userId}`);
-      setUserName(response.data.name);
+      const userToken = await AsyncStorage.getItem('userToken');
+
+      if (!userToken) {
+        console.error('User token is undefined or null.');
+        return;
+      }
+
+      // Continue with the rest of your code
+      const response = await fetch(`http://192.168.0.179:3000/user/getUser/${userId}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const userData = await response.json();
+      setUserDetails(userData);
+      console.log("response", userData);
+      setUserName(userData.name);
     } catch (error) {
       console.error('Error fetching user information:', error);
     }
   };
+
+
+
 
   const pickImage = async () => {
     let result = (await ImagePicker.launchImageLibraryAsync({
@@ -85,7 +116,6 @@ const Profile = ({ navigation, userId } : any) => {
 
       console.log('Image uploaded successfully:', response.data);
     } catch (error) {
-      // Handle the error
       console.error('Error uploading image:', error);
     }
   };
@@ -119,7 +149,7 @@ const Profile = ({ navigation, userId } : any) => {
           </TouchableOpacity>
 
           <Text style={styles.text}>{`${greeting}`}</Text>
-          <Text style={styles.text1}>{user.name}</Text>
+          <Text style={styles.text1}>{username}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button
@@ -176,8 +206,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   profileImageContainer: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
     borderRadius: 100,
     overflow: 'hidden',
     borderWidth: 2,  // Add border width
@@ -185,8 +215,8 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   profileImage: {
-    width: '100%',  // Use '100%' to ensure the image takes up the entire container
-    height: '100%',  // Use '100%' to ensure the image takes up the entire container
+    width: '110%',  // Use '100%' to ensure the image takes up the entire container
+    height: '110%',  // Use '100%' to ensure the image takes up the entire container
     borderRadius: 100,
   },
   text: {
