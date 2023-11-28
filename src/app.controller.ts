@@ -56,23 +56,32 @@ export class AppController {
 
   @Post('register')
   async registerUser(@Body() userData: UserDTO, @Res() response) {
-    if (userData.password !== userData.confirmpassword) {
-      return response.status(HttpStatus.BAD_REQUEST).json({
-        status: false,
-        message: "Password Mismatch",
-      })
-    }
-    delete userData.confirmpassword;
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    try {
+      if (userData.password !== userData.confirmpassword) {
+        return response.status(HttpStatus.BAD_REQUEST).json({
+          status: false,
+          message: "Password Mismatch",
+        })
+      }
+      delete userData.confirmpassword;
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-    userData.email = userData.email.toLowerCase();
-    userData.password = hashedPassword;
-    const createUser = await this.appService.registerUser(userData);
-    return response.status(HttpStatus.CREATED).json({
-      status: true,
-      message: "User registered successfully",
-      data: createUser
-    })
+      userData.email = userData.email.toLowerCase();
+      userData.password = hashedPassword;
+      const createUser = await this.appService.registerUser(userData);
+      return response.status(HttpStatus.CREATED).json({
+        status: true,
+        message: "User registered successfully",
+        data: createUser
+      })
+    } catch (error) {
+      return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        status: false,
+        message: "Error in register User",
+        error: error.message
+      });
+
+    }
   }
 
   @Delete('/delete/:userId')
@@ -95,9 +104,23 @@ export class AppController {
     }
   }
   @Put('/update/:userid')
-  async updateUser(@Param('userid') userId: string, @Body() updateData: Record<string, any>): Promise<any> {
-    const updatedUser = this.appService.update(userId, updateData);
-    return updatedUser
+  async updateUser(@Param('userid') userId: string, @Res() response, @Body() updateData: Record<string, any>): Promise<any> {
+    try {
+      const updatedUser = this.appService.update(userId, updateData);
+
+      return response.status(HttpStatus.OK).json({
+        status: true,
+        message: "User is update ",
+        data: updatedUser
+      })
+    } catch (error) {
+      return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        status: false,
+        message: "Error in updating user",
+        error: error.message
+      });
+
+    }
   }
 
 }
