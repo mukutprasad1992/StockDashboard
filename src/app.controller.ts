@@ -28,8 +28,8 @@ export class AppController {
     } catch (error) {
       return response.status(HttpStatus.NOT_FOUND).json({
         status: false,
-        message: 'User not found', // You can customize this error message too
-        error: error.message, // Include the error message for debugging
+        message: 'User not found',
+        error: error.message,
       });
     }
   }
@@ -62,7 +62,7 @@ export class AppController {
           status: false,
           message: "Password Mismatch",
         })
-      }
+      }    //ku bol ath a
       delete userData.confirmpassword;
       const hashedPassword = await bcrypt.hash(userData.password, 10);
 

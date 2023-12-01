@@ -1,3 +1,4 @@
+import { DefaultValuePipe } from "@nestjs/common";
 import { IsNotEmpty, IsString } from "class-validator";
 
 export class PaymentDto {

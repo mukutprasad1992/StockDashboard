@@ -12,6 +12,7 @@ export class PaymentController {
     @Post('/create')
     async createPayment(@Res() response, @Body() payment: PaymentDto) {
         try {
+            payment.status = "pending"
             const createPayment = await this.paymentService.createPayment(payment)
             return response.status(HttpStatus.CREATED).json({
                 status: true,
